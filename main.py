@@ -2,6 +2,8 @@ from fastapi import FastAPI, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 
+from pydantic import BaseModel
+
 app = FastAPI()
 
 
@@ -90,3 +92,80 @@ def get_root():
 @app.get("/api/subnet")
 def get_subnet(ip: str = Query(...), prefix: int = Query(...)):
     return hitung_subnet(ip, prefix)
+
+
+class VLSMRequest(BaseModel):
+    network: str
+    kebutuhan_host: list[int]
+
+
+def alokasi_vlsm(network_cidr: str, kebutuhan_host: list[int]) -> list[dict]:
+    if not isinstance(network_cidr, str) or "/" not in network_cidr:
+        raise ValueError("Format network_cidr harus berupa string dengan format IP/Prefix (contoh: 192.168.1.0/24)")
+
+    parts = network_cidr.split("/")
+    if len(parts) != 2:
+        raise ValueError("Format network_cidr tidak valid")
+
+    ip_str, prefix_str = parts[0].strip(), parts[1].strip()
+    if not prefix_str.isdigit():
+        raise ValueError("Prefix harus berupa bilangan bulat")
+
+    parent_prefix = int(prefix_str)
+    # Validasi IP dan Prefix menggunakan hitung_subnet
+    parent_subnet = hitung_subnet(ip_str, parent_prefix)
+
+    # Validasi apakah alamat IP yang diberikan memang merupakan alamat network awal
+    if ip_str != parent_subnet["network"]:
+        raise ValueError(f"Alamat '{ip_str}' bukan alamat network yang valid untuk prefix /{parent_prefix} (seharusnya '{parent_subnet['network']}')")
+
+    if not isinstance(kebutuhan_host, list) or len(kebutuhan_host) == 0:
+        raise ValueError("Daftar kebutuhan_host tidak boleh kosong")
+
+    for req in kebutuhan_host:
+        if not isinstance(req, int) or isinstance(req, bool) or req < 1:
+            raise ValueError("Setiap nilai dalam kebutuhan_host harus berupa integer positif (>= 1)")
+
+    # Urutkan elemen kebutuhan_host secara descending
+    sorted_kebutuhan = sorted(kebutuhan_host, reverse=True)
+
+    parent_octets = [int(p) for p in parent_subnet["network"].split(".")]
+    parent_ip_int = (parent_octets[0] << 24) | (parent_octets[1] << 16) | (parent_octets[2] << 8) | parent_octets[3]
+    parent_capacity = (1 << (32 - parent_prefix)) if parent_prefix < 32 else 1
+    parent_end_int = parent_ip_int + parent_capacity
+
+    current_ip_int = parent_ip_int
+    allocations = []
+
+    for req in sorted_kebutuhan:
+        needed = req + 2
+        block_size = 1
+        while block_size < needed:
+            block_size <<= 1
+        # Alokasi minimum untuk VLSM adalah prefix /30 (kapasitas 2 host, block size 4)
+        if block_size < 4:
+            block_size = 4
+
+        h_bits = block_size.bit_length() - 1
+        sub_prefix = 32 - h_bits
+
+        if current_ip_int + block_size > parent_end_int:
+            raise ValueError(f"Kapasitas blok IP induk {network_cidr} tidak mencukupi untuk menampung seluruh alokasi kebutuhan host")
+
+        sub_ip_str = int_to_ip(current_ip_int)
+        sub_detail = hitung_subnet(sub_ip_str, sub_prefix)
+
+        allocations.append({
+            "kebutuhan": req,
+            "network_cidr": f"{sub_ip_str}/{sub_prefix}",
+            **sub_detail,
+        })
+
+        current_ip_int += block_size
+
+    return allocations
+
+
+@app.post("/api/vlsm")
+def post_vlsm(payload: VLSMRequest):
+    return alokasi_vlsm(payload.network, payload.kebutuhan_host)
