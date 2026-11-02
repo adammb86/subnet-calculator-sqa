@@ -43,3 +43,15 @@ uv run python scripts/smoke_test.py http://127.0.0.1:8000
 docker rm -f subnet-app
 ```
 
+## Deploy
+
+Aplikasi berjalan di Vercel: https://subnet-calculator-sqa-jade.vercel.app
+
+### Smoke test produksi
+
+```bash
+uv run python scripts/smoke_test.py https://subnet-calculator-sqa-jade.vercel.app
+```
+
+Perintah ini keluar dengan kode 0 bila semua pemeriksaan lulus.
+
