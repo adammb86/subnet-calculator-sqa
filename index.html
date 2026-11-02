@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"on-error-container":"#93000a","primary":"#005bbf","surface-container-high":"#e5e8ec","error":"#ba1a1a","secondary-fixed-dim":"#c3c7cc","on-tertiary-fixed-variant":"#00531e","on-primary-container":"#ffffff","on-tertiary-fixed":"#002108","on-tertiary-container":"#000701","inverse-on-surface":"#eef1f5","tertiary-fixed-dim":"#73dc82","secondary-container":"#dde0e6","outline-variant":"#c1c6d6","on-surface-variant":"#414754","surface-container-lowest":"#ffffff","on-secondary-fixed-variant":"#43474c","tertiary-container":"#16893a","tertiary-fixed":"#8ffa9b","background":"#f7fafd","surface-container-highest":"#e0e3e6","error-container":"#ffdad6","surface-tint":"#005bc0","on-background":"#181c1f","tertiary":"#006d2a","on-error":"#ffffff","surface-container-low":"#f1f4f7","surface-dim":"#d7dade","on-secondary-fixed":"#181c20","surface-container":"#ebeef2","on-secondary":"#ffffff","surface-bright":"#f7fafd","outline":"#727785","secondary":"#5b5f64","on-secondary-container":"#5f6368","primary-container":"#1a73e8","on-primary-fixed":"#001a41","on-tertiary":"#ffffff","primary-fixed-dim":"#adc7ff","inverse-primary":"#adc7ff","surface-variant":"#e0e3e6","on-primary":"#ffffff","surface":"#f7fafd","on-surface":"#181c1f","primary-fixed":"#d8e2ff","on-primary-fixed-variant":"#004493","secondary-fixed":"#dfe3e8","inverse-surface":"#2d3134"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter-sm":"1rem","space-lg":"1.5rem","gutter":"1.5rem","margin":"2rem","margin-sm":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-md":"1rem","space-xs":"0.25rem"},"fontFamily":{"code-lg":["JetBrains Mono"],"body-lg":["Inter"],"code-md":["JetBrains Mono"],"headline-lg":["Inter"],"label-md":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"code-sm":["JetBrains Mono"],"headline-lg-mobile":["Inter"],"display-lg":["Inter"]},"fontSize":{"code-lg":["1rem",{"lineHeight":"1.5rem","fontWeight":"500"}],"body-lg":["1rem",{"lineHeight":"1.625rem","fontWeight":"400"}],"code-md":["0.875rem",{"lineHeight":"1.25rem","fontWeight":"500"}],"headline-lg":["2rem",{"lineHeight":"2.5rem","letterSpacing":"-0.015em","fontWeight":"500"}],"label-md":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0.01em","fontWeight":"500"}],"headline-md":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-sm":["1.125rem",{"lineHeight":"1.5rem","fontWeight":"500"}],"body-sm":["0.75rem",{"lineHeight":"1.125rem","fontWeight":"400"}],"label-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.02em","fontWeight":"500"}],"body-md":["0.875rem",{"lineHeight":"1.375rem","fontWeight":"400"}],"code-sm":["0.75rem",{"lineHeight":"1rem","fontWeight":"400"}],"headline-lg-mobile":["1.5rem",{"lineHeight":"2rem","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["3rem",{"lineHeight":"3.5rem","letterSpacing":"-0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary text-[24px]">hub</span></div><div class="flex flex-col truncate"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">NetSubnet</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate hidden sm:inline">Vocational Networking Education Toolkit</span></div></div><nav class="hidden lg:flex items-center gap-space-xs" data-active-classes="bg-primary text-on-primary font-label-md text-label-md rounded-lg"><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-primary text-on-primary font-label-md text-label-md rounded-lg" data-path="subnet-calculator" href="#">Subnet Calculator</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors" data-path="vlsm-designer" href="#">VLSM Designer</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors" data-path="cidr-reference" href="#">CIDR Reference</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors" data-path="practice-drills" href="#">Practice Drills</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded-lg transition-colors" data-path="classful-review" href="#">Classful Review</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="hidden md:flex items-center bg-surface-container-low px-space-sm py-space-xs rounded-full gap-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant px-space-xs">State Demo:</span><a class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="state-empty" href="#">Empty</a><a class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="state-success" href="#">Success</a><a class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="state-error" href="#">Error</a></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-80px)]"><div class="max-w-7xl mx-auto px-margin py-space-lg"><div class="flex flex-col w-full">
+<div class="w-full flex flex-col gap-space-lg">
+<!-- Top Educational Bar: Tabs & Teacher State Selector -->
+<div class="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded-2xl shadow-sm">
+<div class="flex items-center gap-space-xs p-1 bg-surface-container-low rounded-xl">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 bg-primary-container text-on-primary shadow-sm" id="tab-subnet-btn" onclick="switchToolTab('subnet')">
+<span class="material-symbols-outlined text-[18px]">calculate</span>
+<span>Subnet Calculator</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-vlsm-btn" onclick="switchToolTab('vlsm')">
+<span class="material-symbols-outlined text-[18px]">schema</span>
+<span>VLSM Designer</span>
+</button>
+</div>
+<!-- Instructor State Simulation Selector -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-sm text-label-sm text-on-surface-variant px-space-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[16px]">school</span>
+          Teaching Mode:
+        </span>
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl gap-1">
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all text-on-primary bg-primary-container font-semibold" id="state-btn-success" onclick="setSimState('success')">
+            Success (Filled)
+          </button>
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface" id="state-btn-empty" onclick="setSimState('empty')">
+            Empty State
+          </button>
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface" id="state-btn-error" onclick="setSimState('error')">
+            Error Validation
+          </button>
+</div>
+</div>
+</div>
+<!-- ========================================================== -->
+<!-- SECTION 1: SUBNET CALCULATOR VIEW -->
+<!-- ========================================================== -->
+<div class="w-full flex flex-col gap-space-lg" id="section-subnet">
+<!-- Input Parameters Card -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">IPv4 Single Subnet Calculator</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Compute network ID, broadcast boundary, binary mask partitioning, and valid client addressing.</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface font-code-sm text-code-sm self-start">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+            RFC 791 / RFC 4632
+          </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start pt-space-xs">
+<!-- IPv4 Input -->
+<div class="md:col-span-5 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="subnet-ip-input">
+<span>IPv4 Address</span>
+<span class="font-code-sm text-code-sm text-outline">Dotted-Decimal</span>
+</label>
+<div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="subnet-ip-wrapper">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">router</span>
+<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-ip-input" placeholder="e.g. 192.168.1.1" type="text" value="192.168.10.75" onkeydown="if(event.key==='Enter') triggerCalculate()"/>
+</div>
+<!-- Error helper message -->
+<div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="subnet-ip-error">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>Octet 2 must be between 0 and 255 (e.g. 192.168.1.1)</span>
+</div>
+</div>
+<!-- CIDR Prefix Input -->
+<div class="md:col-span-4 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="subnet-prefix-input">
+<span>Prefix / CIDR</span>
+<span class="font-code-sm text-code-sm text-outline">/0 through /32</span>
+</label>
+<div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="subnet-prefix-wrapper">
+<span class="font-code-md text-code-md text-outline absolute left-3 top-2.5 font-bold">/</span>
+<input class="w-full pl-7 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-prefix-input" placeholder="24" type="text" value="26" onkeydown="if(event.key==='Enter') triggerCalculate()"/>
+</div>
+<!-- Error helper message -->
+<div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="subnet-prefix-error">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>Prefix must be an integer between 0 and 32</span>
+</div>
+</div>
+<!-- Quick CIDR Preset Chips & Actions -->
+<div class="md:col-span-3 flex flex-col gap-1.5 justify-end h-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Classroom Shortcuts</span>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container font-code-sm text-code-sm text-primary transition-colors" onclick="applyPresetPrefix('24')">/24</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container font-code-sm text-code-sm text-primary transition-colors" onclick="applyPresetPrefix('26')">/26</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container font-code-sm text-code-sm text-primary transition-colors" onclick="applyPresetPrefix('28')">/28</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low hover:bg-surface-container font-code-sm text-code-sm text-primary transition-colors" onclick="applyPresetPrefix('30')">/30 (P2P)</button>
+</div>
+</div>
+</div>
+<!-- Buttons Row -->
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="inline-flex items-center gap-2 px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-sm" onclick="triggerCalculate()">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+            Calculate Subnet
+          </button>
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors" onclick="resetSubnetForm()">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+            Reset
+          </button>
+</div>
+<!-- Error Alert Container (SPEC.md Visual Feedback) -->
+<div id="subnet-alert-container" class="hidden p-space-md rounded-xl bg-error-container text-error font-medium items-center gap-3 border border-error">
+  <span class="material-symbols-outlined text-[24px] text-error shrink-0">error</span>
+  <div>
+    <div class="font-label-md text-label-md font-bold text-error">Kesalahan Input (HTTP 400)</div>
+    <div id="subnet-alert-detail" class="font-body-sm text-body-sm text-error font-medium"></div>
+  </div>
+</div>
+</div>
+<!-- SUBNET RESULT: SUCCESS STATE -->
+<div class="flex flex-col gap-space-md" id="subnet-result-success">
+<!-- 6-Row Parameter Table (SPEC.md) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg overflow-x-auto">
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary">table_chart</span>
+      Tabel Hasil Kalkulasi Subnet
+    </h3>
+  </div>
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="border-b border-surface-container-high text-on-surface-variant font-label-md text-label-md">
+        <th class="py-2.5 px-4">Parameter</th>
+        <th class="py-2.5 px-4">Nilai</th>
+      </tr>
+    </thead>
+    <tbody class="font-code-md text-code-md divide-y divide-surface-container-low">
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Network</td>
+        <td class="py-2.5 px-4 text-primary font-bold" id="tbl-network">192.168.10.64</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Mask</td>
+        <td class="py-2.5 px-4 text-on-surface" id="tbl-mask">255.255.255.192</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Broadcast</td>
+        <td class="py-2.5 px-4 text-on-surface" id="tbl-broadcast">192.168.10.127</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">First Host</td>
+        <td class="py-2.5 px-4 text-tertiary font-bold" id="tbl-first-host">192.168.10.65</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Last Host</td>
+        <td class="py-2.5 px-4 text-tertiary font-bold" id="tbl-last-host">192.168.10.126</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Usable Hosts</td>
+        <td class="py-2.5 px-4 text-primary font-bold" id="tbl-usable-hosts">62</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Summary Banner Card -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[32px]">lan</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Computed Subnet Allocation</span>
+<div class="flex items-baseline gap-space-xs flex-wrap">
+<span class="font-code-lg text-headline-md text-primary font-bold" id="res-banner-ip">192.168.10.64</span>
+<span class="font-code-md text-headline-sm text-primary-container font-semibold" id="res-banner-prefix">/26</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap shrink-0">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              Class C Network
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-tertiary font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+              Private Range (RFC 1918)
+            </span>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" onclick="copyToClipboard('192.168.10.64/26', this)">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy CIDR</span>
+</button>
+</div>
+</div>
+<!-- Technical Parameters Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Subnet Mask Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">filter_alt</span>
+                Subnet Mask
+              </span>
+<button class="hover:text-primary transition-colors" onclick="copyToClipboard('255.255.255.192', this)" title="Copy mask">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-mask">255.255.255.192</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant tracking-tighter truncate mt-0.5" title="11111111.11111111.11111111.11000000">
+                11111111.11111111.11111111.<span class="text-primary font-bold">11</span>000000
+              </div>
+</div>
+<div class="font-body-sm text-body-sm text-outline">26 Network bits • 6 Host bits</div>
+</div>
+<!-- Network Address -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">trip_origin</span>
+                Network Address
+              </span>
+<button class="hover:text-primary transition-colors" onclick="copyToClipboard('192.168.10.64', this)" title="Copy network ID">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-network">192.168.10.64</div>
+<div class="font-body-sm text-body-sm text-outline mt-0.5">Identifies the subnet on the wire</div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Reserved — Non-assignable</div>
+</div>
+<!-- Broadcast Address -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">cell_tower</span>
+                Broadcast Address
+              </span>
+<button class="hover:text-primary transition-colors" onclick="copyToClipboard('192.168.10.127', this)" title="Copy broadcast">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-broadcast">192.168.10.127</div>
+<div class="font-body-sm text-body-sm text-outline mt-0.5">All host bits set to binary 1</div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Reserved — Local segment only</div>
+</div>
+<!-- Usable Host Range -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm md:col-span-2">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">devices</span>
+                Usable Host Range (First &amp; Last)
+              </span>
+<button class="hover:text-primary transition-colors" onclick="copyToClipboard('192.168.10.65 - 192.168.10.126', this)" title="Copy range">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm py-1">
+<div class="p-space-sm bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-label-sm text-outline block">First Usable Host</span>
+<span class="font-code-md text-code-md text-on-surface font-semibold" id="res-first-host">192.168.10.65</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg">
+<span class="font-label-sm text-label-sm text-outline block">Last Usable Host</span>
+<span class="font-code-md text-code-md text-on-surface font-semibold" id="res-last-host">192.168.10.126</span>
+</div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Valid unicast endpoints for hosts, gateways, and switches.</div>
+</div>
+<!-- Usable Hosts Calculation Formula -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">pin</span>
+                Usable Hosts Capacity
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-tertiary font-code-sm text-code-sm font-semibold" id="res-usable-badge">62 Hosts</span>
+</div>
+<div>
+<div class="font-code-md text-headline-sm text-primary font-bold" id="res-usable-hosts">2<sup class="text-xs">6</sup> - 2 = 62</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant mt-1">Total IPs: 64 • Overhead: 2</div>
+</div>
+<div class="font-body-sm text-body-sm text-outline">Formula: 2<sup class="text-xs">(32 - prefix)</sup> - 2</div>
+</div>
+<!-- Wildcard Mask -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">shuffle</span>
+                Wildcard (ACL) Mask
+              </span>
+<button class="hover:text-primary transition-colors" onclick="copyToClipboard('0.0.0.63', this)" title="Copy wildcard">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold">0.0.0.63</div>
+<div class="font-code-sm text-code-sm text-outline mt-0.5">255.255.255.255 - Mask</div>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Used in Cisco IOS ACLs &amp; OSPF network statements</div>
+</div>
+<!-- Binary Bit Breakdown (Educational Visualization) -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-sm md:col-span-2">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">data_object</span>
+                Classroom Bit Boundary Breakdown
+              </span>
+<span class="font-code-sm text-code-sm text-primary">32-Bit Dual Color Rail</span>
+</div>
+<!-- Bit bar visualizer -->
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="grid grid-cols-4 gap-2 text-center font-code-sm text-code-sm">
+<div class="p-1.5 rounded bg-primary-fixed text-on-primary-fixed">Octet 1 (8b)</div>
+<div class="p-1.5 rounded bg-primary-fixed text-on-primary-fixed">Octet 2 (8b)</div>
+<div class="p-1.5 rounded bg-primary-fixed text-on-primary-fixed">Octet 3 (8b)</div>
+<div class="p-1.5 rounded bg-surface-container-high text-on-surface flex justify-center items-center gap-1">
+<span class="text-primary font-bold">2b Net</span> | <span class="text-secondary font-bold">6b Host</span>
+</div>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-high overflow-hidden flex">
+<div class="h-full bg-primary transition-all" style="width: 81.25%;" title="26 Network Bits (81.25%)"></div>
+<div class="h-full bg-secondary-container transition-all" style="width: 18.75%;" title="6 Host Bits (18.75%)"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-1">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                  26 Network Bits (Routing Prefix)
+                </span>
+<span class="flex items-center gap-1 text-secondary font-medium">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+                  6 Host Bits (Endpoint IDs)
+                </span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">
+              Vocational tip: Borrowing 2 bits from the 4th octet yields 2<sup class="text-xs">2</sup> = 4 equal subnets per /24 block, each having a block size interval of 64.
+            </p>
+</div>
+</div>
+</div>
+<!-- SUBNET RESULT: EMPTY STATE -->
+<div class="hidden w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-xl flex-col items-center justify-center text-center gap-space-md" id="subnet-result-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[36px]">input</span>
+</div>
+<div class="max-w-md flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">No Subnet Parameters Submitted</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Enter an IPv4 address and prefix to compute subnet boundaries, masks, and usable host ranges.
+          </p>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md transition-colors" onclick="fillSampleSubnet()">
+          Load Sample (192.168.10.75 /26)
+        </button>
+</div>
+</div>
+<!-- ========================================================== -->
+<!-- SECTION 2: VLSM DESIGNER VIEW -->
+<!-- ========================================================== -->
+<div class="hidden w-full flex flex-col gap-space-lg" id="section-vlsm">
+<!-- VLSM Config Panel -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Variable Length Subnet Masking (VLSM) Designer</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Efficiently partition a parent block based on descending host capacity requirements to minimize wasted IP space.</p>
+</div>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface font-code-sm text-code-sm self-start">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+            Hierarchical Routing
+          </span>
+</div>
+<!-- Major Network Block Input -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start pt-space-xs">
+<div class="md:col-span-6 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center justify-between" for="vlsm-major-net">
+<span>Parent Major Network Block</span>
+<span class="font-code-sm text-code-sm text-outline">Network/Prefix</span>
+</label>
+<div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="vlsm-input-wrapper">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">account_tree</span>
+<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="vlsm-major-net" placeholder="e.g. 172.16.0.0/20" type="text" value="172.16.0.0/20"/>
+</div>
+<div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="vlsm-net-error">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>Major network must be a valid network ID with CIDR (e.g. 172.16.0.0/20)</span>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-1.5 justify-end h-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Classroom Instructions</span>
+<p class="font-body-sm text-body-sm text-outline">
+              Subnets are automatically ordered from largest host requirement to smallest. This ensures contiguous address blocks without boundary collision.
+            </p>
+</div>
+</div>
+<!-- Host Requirements Interactive Dynamic Table -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-medium">Subnet Requirements List</span>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-sm text-label-sm transition-colors" onclick="addVlsmRow()">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add Subnet / Host Requirement</span>
+</button>
+</div>
+<!-- Dynamic Items Container -->
+<div class="flex flex-col gap-2" id="vlsm-rows-container">
+<!-- Row 1 -->
+<div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+<div class="col-span-6 sm:col-span-7">
+<input class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Subnet Name" type="text" value="Engineering Dept"/>
+</div>
+<div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+<input class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Hosts" type="number" value="120"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="p-1 rounded text-outline hover:text-error transition-colors" onclick="removeVlsmRow(this)" title="Delete subnet">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+<div class="col-span-6 sm:col-span-7">
+<input class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Subnet Name" type="text" value="Sales Office"/>
+</div>
+<div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+<input class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Hosts" type="number" value="50"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="p-1 rounded text-outline hover:text-error transition-colors" onclick="removeVlsmRow(this)" title="Delete subnet">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+<div class="col-span-6 sm:col-span-7">
+<input class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Subnet Name" type="text" value="Admin &amp; Staff"/>
+</div>
+<div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+<input class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Hosts" type="number" value="25"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="p-1 rounded text-outline hover:text-error transition-colors" onclick="removeVlsmRow(this)" title="Delete subnet">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+<div class="col-span-6 sm:col-span-7">
+<input class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Subnet Name" type="text" value="WAN Link to HQ"/>
+</div>
+<div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+<input class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface" placeholder="Hosts" type="number" value="2"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="p-1 rounded text-outline hover:text-error transition-colors" onclick="removeVlsmRow(this)" title="Delete subnet">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="inline-flex items-center gap-2 px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-sm" onclick="triggerVlsmCalculate()">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+            Compute VLSM Table
+          </button>
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors" onclick="resetVlsmForm()">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+            Reset List
+          </button>
+</div>
+</div>
+<!-- VLSM RESULT: SUCCESS STATE -->
+<div class="flex flex-col gap-space-md" id="vlsm-result-success">
+<!-- VLSM Stats Header Card -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center shrink-0 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[28px]">data_usage</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Address Space Efficiency</span>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                Allocated 240 / 4094 available addresses <span class="text-tertiary font-bold">(5.8% space used)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" onclick="exportVlsmCsv()">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Export CSV</span>
+</button>
+</div>
+</div>
+<!-- VLSM Results Table Card -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4">Subnet Name</th>
+<th class="py-3 px-4">Needed</th>
+<th class="py-3 px-4">Allocated</th>
+<th class="py-3 px-4">Prefix</th>
+<th class="py-3 px-4">Subnet Mask</th>
+<th class="py-3 px-4">Network Address</th>
+<th class="py-3 px-4">Usable Host Range</th>
+<th class="py-3 px-4">Broadcast Address</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Engineering Dept
+                  </td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-outline">120</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary font-semibold">126</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm font-bold text-primary">/25</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">255.255.255.128</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface font-semibold">172.16.0.0</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.1 – 172.16.0.126</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.127</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest/60 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Sales Office
+                  </td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-outline">50</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary font-semibold">62</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm font-bold text-primary">/26</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">255.255.255.192</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface font-semibold">172.16.0.128</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.129 – 172.16.0.190</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.191</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Admin &amp; Staff
+                  </td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-outline">25</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary font-semibold">30</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm font-bold text-primary">/27</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">255.255.255.224</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface font-semibold">172.16.0.192</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.193 – 172.16.0.222</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.223</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-lowest/60 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    WAN Link to HQ
+                  </td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-outline">2</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary font-semibold">2</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm font-bold text-primary">/30</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">255.255.255.252</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface font-semibold">172.16.0.224</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.225 – 172.16.0.226</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">172.16.0.227</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Next Available Network Boundary: <strong class="font-code-sm text-code-sm text-on-surface">172.16.0.228 /30</strong></span>
+<span class="text-tertiary font-medium">Zero Contiguity Overlaps Detected</span>
+</div>
+</div>
+</div>
+<!-- VLSM RESULT: EMPTY STATE -->
+<div class="hidden w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-xl flex-col items-center justify-center text-center gap-space-md" id="vlsm-result-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[36px]">table_rows</span>
+</div>
+<div class="max-w-md flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">No VLSM Allocations Calculated</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Define host requirements above and click Compute to generate an optimized variable-length subnet plan.
+          </p>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md transition-colors" onclick="fillSampleVlsm()">
+          Load Sample Topology (4 Subnets)
+        </button>
+</div>
+</div>
+<!-- Instructor Note / Quick Educational Toast Notification Container -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 bg-inverse-surface text-inverse-on-surface px-4 py-2.5 rounded-xl shadow-lg font-body-sm text-body-sm" id="toast-notify">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[18px]">check_circle</span>
+<span id="toast-msg">Copied to clipboard</span>
+</div>
+</div>
+</div>
+<script>
+  let currentActiveTab = 'subnet';
+  let currentSimState = 'success';
+
+  function switchToolTab(tab) {
+    currentActiveTab = tab;
+    const subnetBtn = document.getElementById('tab-subnet-btn');
+    const vlsmBtn = document.getElementById('tab-vlsm-btn');
+    const subnetSec = document.getElementById('section-subnet');
+    const vlsmSec = document.getElementById('section-vlsm');
+
+    if (tab === 'subnet') {
+      subnetBtn.className = 'flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 bg-primary-container text-on-primary shadow-sm';
+      vlsmBtn.className = 'flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface';
+      subnetSec.classList.remove('hidden');
+      vlsmSec.classList.add('hidden');
+    } else {
+      vlsmBtn.className = 'flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 bg-primary-container text-on-primary shadow-sm';
+      subnetBtn.className = 'flex items-center gap-space-xs px-space-md py-space-xs rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface';
+      vlsmSec.classList.remove('hidden');
+      subnetSec.classList.add('hidden');
+    }
+  }
+
+  function setSimState(state) {
+    currentSimState = state;
+    const states = ['success', 'empty', 'error'];
+    states.forEach(s => {
+      const btn = document.getElementById(`state-btn-${s}`);
+      if (s === state) {
+        btn.className = 'px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all text-on-primary bg-primary-container font-semibold';
+      } else {
+        btn.className = 'px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface';
+      }
+    });
+
+    // Render Subnet Section State
+    const subnetSuccess = document.getElementById('subnet-result-success');
+    const subnetEmpty = document.getElementById('subnet-result-empty');
+    const subnetIpWrap = document.getElementById('subnet-ip-wrapper');
+    const subnetIpErr = document.getElementById('subnet-ip-error');
+    const subnetPrefWrap = document.getElementById('subnet-prefix-wrapper');
+    const subnetPrefErr = document.getElementById('subnet-prefix-error');
+
+    // Render VLSM Section State
+    const vlsmSuccess = document.getElementById('vlsm-result-success');
+    const vlsmEmpty = document.getElementById('vlsm-result-empty');
+    const vlsmWrap = document.getElementById('vlsm-input-wrapper');
+    const vlsmErr = document.getElementById('vlsm-net-error');
+
+    if (state === 'success') {
+      // Normal inputs
+      subnetIpWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      subnetIpErr.classList.add('hidden');
+      subnetPrefWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      subnetPrefErr.classList.add('hidden');
+      vlsmWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      vlsmErr.classList.add('hidden');
+
+      subnetSuccess.classList.remove('hidden');
+      subnetEmpty.classList.add('hidden');
+      vlsmSuccess.classList.remove('hidden');
+      vlsmEmpty.classList.add('hidden');
+
+      // Fill in demo data
+      document.getElementById('subnet-ip-input').value = '192.168.10.75';
+      document.getElementById('subnet-prefix-input').value = '26';
+      document.getElementById('vlsm-major-net').value = '172.16.0.0/20';
+
+    } else if (state === 'empty') {
+      subnetIpWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      subnetIpErr.classList.add('hidden');
+      subnetPrefWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      subnetPrefErr.classList.add('hidden');
+      vlsmWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+      vlsmErr.classList.add('hidden');
+
+      document.getElementById('subnet-ip-input').value = '';
+      document.getElementById('subnet-prefix-input').value = '';
+
+      subnetSuccess.classList.add('hidden');
+      subnetEmpty.classList.remove('hidden');
+      vlsmSuccess.classList.add('hidden');
+      vlsmEmpty.classList.remove('hidden');
+
+    } else if (state === 'error') {
+      // Highlight errors with red borders (#ba1a1a / #ffdad6)
+      subnetIpWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+      subnetIpErr.classList.remove('hidden');
+      subnetIpErr.classList.add('flex');
+
+      subnetPrefWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+      subnetPrefErr.classList.remove('hidden');
+      subnetPrefErr.classList.add('flex');
+
+      vlsmWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+      vlsmErr.classList.remove('hidden');
+      vlsmErr.classList.add('flex');
+
+      document.getElementById('subnet-ip-input').value = '192.348.10.75';
+      document.getElementById('subnet-prefix-input').value = '35';
+      document.getElementById('vlsm-major-net').value = '172.16.999.0/99';
+
+      subnetSuccess.classList.add('hidden');
+      subnetEmpty.classList.remove('hidden');
+      vlsmSuccess.classList.add('hidden');
+      vlsmEmpty.classList.remove('hidden');
+    }
+  }
+
+  function applyPresetPrefix(prefix) {
+    document.getElementById('subnet-prefix-input').value = prefix;
+    triggerCalculate();
+    showToast(`Preset /${prefix} applied`);
+  }
+
+  async function triggerCalculate() {
+    const ip = document.getElementById('subnet-ip-input').value.trim();
+    const prefix = document.getElementById('subnet-prefix-input').value.trim();
+
+    const alertContainer = document.getElementById('subnet-alert-container');
+    const alertDetail = document.getElementById('subnet-alert-detail');
+    const subnetSuccess = document.getElementById('subnet-result-success');
+    const subnetEmpty = document.getElementById('subnet-result-empty');
+    const ipWrap = document.getElementById('subnet-ip-wrapper');
+    const prefWrap = document.getElementById('subnet-prefix-wrapper');
+
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
+    if (ipWrap) ipWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+    if (prefWrap) prefWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+
+    try {
+      const response = await fetch(`/api/subnet?ip=${encodeURIComponent(ip)}&prefix=${encodeURIComponent(prefix)}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (alertContainer && alertDetail) {
+          alertContainer.classList.remove('hidden');
+          alertContainer.classList.add('flex');
+          alertDetail.textContent = data.detail || 'Terjadi kesalahan validasi.';
+        }
+        if (ipWrap) ipWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+        if (prefWrap) prefWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+        subnetSuccess.classList.add('hidden');
+        subnetEmpty.classList.remove('hidden');
+        showToast('Kalkulasi gagal: ' + (data.detail || 'Error'));
+        return;
+      }
+
+      renderSubnetData(ip, prefix, data);
+      subnetSuccess.classList.remove('hidden');
+      subnetEmpty.classList.add('hidden');
+      showToast('Kalkulasi subnet berhasil');
+    } catch (err) {
+      if (alertContainer && alertDetail) {
+        alertContainer.classList.remove('hidden');
+        alertContainer.classList.add('flex');
+        alertDetail.textContent = 'Gagal menghubungi server API: ' + err.message;
+      }
+      subnetSuccess.classList.add('hidden');
+      subnetEmpty.classList.remove('hidden');
+    }
+  }
+
+  function renderSubnetData(ip, prefix, data) {
+    const bannerIp = document.getElementById('res-banner-ip');
+    const bannerPref = document.getElementById('res-banner-prefix');
+    if (bannerIp) bannerIp.textContent = data.network;
+    if (bannerPref) bannerPref.textContent = `/${prefix}`;
+
+    const tblNet = document.getElementById('tbl-network');
+    const tblMask = document.getElementById('tbl-mask');
+    const tblBrd = document.getElementById('tbl-broadcast');
+    const tblFirst = document.getElementById('tbl-first-host');
+    const tblLast = document.getElementById('tbl-last-host');
+    const tblUsable = document.getElementById('tbl-usable-hosts');
+
+    if (tblNet) tblNet.textContent = data.network;
+    if (tblMask) tblMask.textContent = data.mask;
+    if (tblBrd) tblBrd.textContent = data.broadcast !== null ? data.broadcast : 'None (Point-to-point / Host route)';
+    if (tblFirst) tblFirst.textContent = data.first_host;
+    if (tblLast) tblLast.textContent = data.last_host;
+    if (tblUsable) tblUsable.textContent = data.usable_hosts;
+
+    const cardMask = document.getElementById('res-mask');
+    const cardNet = document.getElementById('res-network');
+    const cardBrd = document.getElementById('res-broadcast');
+    const cardFirst = document.getElementById('res-first-host');
+    const cardLast = document.getElementById('res-last-host');
+    const cardBadge = document.getElementById('res-usable-badge');
+    const cardUsable = document.getElementById('res-usable-hosts');
+
+    if (cardMask) cardMask.textContent = data.mask;
+    if (cardNet) cardNet.textContent = data.network;
+    if (cardBrd) cardBrd.textContent = data.broadcast !== null ? data.broadcast : 'None';
+    if (cardFirst) cardFirst.textContent = data.first_host;
+    if (cardLast) cardLast.textContent = data.last_host;
+    if (cardBadge) cardBadge.textContent = `${data.usable_hosts} Hosts`;
+    if (cardUsable) cardUsable.textContent = `${data.usable_hosts}`;
+  }
+
+  function resetSubnetForm() {
+    document.getElementById('subnet-ip-input').value = '';
+    document.getElementById('subnet-prefix-input').value = '';
+    const alertContainer = document.getElementById('subnet-alert-container');
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
+    const subnetSuccess = document.getElementById('subnet-result-success');
+    const subnetEmpty = document.getElementById('subnet-result-empty');
+    if (subnetSuccess) subnetSuccess.classList.add('hidden');
+    if (subnetEmpty) subnetEmpty.classList.remove('hidden');
+    showToast('Inputs cleared');
+  }
+
+  function fillSampleSubnet() {
+    document.getElementById('subnet-ip-input').value = '192.168.10.75';
+    document.getElementById('subnet-prefix-input').value = '26';
+    triggerCalculate();
+  }
+
+  function fillSampleVlsm() {
+    setSimState('success');
+  }
+
+  function triggerVlsmCalculate() {
+    setSimState('success');
+    showToast('VLSM allocation recalculation successful');
+  }
+
+  function resetVlsmForm() {
+    document.getElementById('vlsm-major-net').value = '';
+    const container = document.getElementById('vlsm-rows-container');
+    container.innerHTML = `
+      <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" placeholder="Subnet Name (e.g. Sales)" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        </div>
+        <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+          <input type="number" placeholder="Hosts" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+        </div>
+        <div class="col-span-1 flex justify-end">
+          <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+            <span class="material-symbols-outlined text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+    `;
+    setSimState('empty');
+  }
+
+  function addVlsmRow() {
+    const container = document.getElementById('vlsm-rows-container');
+    const div = document.createElement('div');
+    div.className = 'vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl';
+    div.innerHTML = `
+      <div class="col-span-6 sm:col-span-7">
+        <input type="text" placeholder="Subnet Name" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+      </div>
+      <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+        <input type="number" placeholder="Hosts" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+      </div>
+      <div class="col-span-1 flex justify-end">
+        <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+          <span class="material-symbols-outlined text-[20px]">delete</span>
+        </button>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  function removeVlsmRow(btn) {
+    const row = btn.closest('.vlsm-row');
+    if (row) {
+      row.remove();
+    }
+  }
+
+  function copyToClipboard(text, el) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(`Copied "${text}" to clipboard`);
+    }).catch(() => {
+      showToast(`Copied "${text}"`);
+    });
+  }
+
+  function exportVlsmCsv() {
+    showToast('Exporting VLSM Plan as CSV');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast-notify');
+    const toastMsg = document.getElementById('toast-msg');
+    toastMsg.textContent = msg;
+    toast.classList.remove('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      toast.classList.add('translate-y-24', 'opacity-0');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 2500);
+  }
+</script></div></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-7xl mx-auto px-margin py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[18px]">school</span><span>NetSubnet Educational Initiative — Tailored for Vocational &amp; Technical Secondary IT Curriculums</span></div><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors" data-path="cidr-reference" href="#">Quick Reference Guide</a><span class="font-code-sm text-code-sm text-outline">RFC 1918 / RFC 4632</span></div></div></footer></body></html>
