@@ -237,4 +237,3 @@ def test_api_vlsm_invalid(network_cidr, kebutuhan):
     )
     assert response.status_code == 400
     assert "detail" in response.json()
-
