@@ -59,7 +59,7 @@
 </label>
 <div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="subnet-ip-wrapper">
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">router</span>
-<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-ip-input" placeholder="e.g. 192.168.1.1" type="text" value="192.168.10.75"/>
+<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-ip-input" placeholder="e.g. 192.168.1.1" type="text" value="192.168.10.75" onkeydown="if(event.key==='Enter') triggerCalculate()"/>
 </div>
 <!-- Error helper message -->
 <div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="subnet-ip-error">
@@ -75,7 +75,7 @@
 </label>
 <div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="subnet-prefix-wrapper">
 <span class="font-code-md text-code-md text-outline absolute left-3 top-2.5 font-bold">/</span>
-<input class="w-full pl-7 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-prefix-input" placeholder="24" type="text" value="26"/>
+<input class="w-full pl-7 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="subnet-prefix-input" placeholder="24" type="text" value="26" onkeydown="if(event.key==='Enter') triggerCalculate()"/>
 </div>
 <!-- Error helper message -->
 <div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="subnet-prefix-error">
@@ -105,9 +105,60 @@
             Reset
           </button>
 </div>
+<!-- Error Alert Container (SPEC.md Visual Feedback) -->
+<div id="subnet-alert-container" class="hidden p-space-md rounded-xl bg-error-container text-error font-medium items-center gap-3 border border-error">
+  <span class="material-symbols-outlined text-[24px] text-error shrink-0">error</span>
+  <div>
+    <div class="font-label-md text-label-md font-bold text-error">Kesalahan Input (HTTP 400)</div>
+    <div id="subnet-alert-detail" class="font-body-sm text-body-sm text-error font-medium"></div>
+  </div>
+</div>
 </div>
 <!-- SUBNET RESULT: SUCCESS STATE -->
 <div class="flex flex-col gap-space-md" id="subnet-result-success">
+<!-- 6-Row Parameter Table (SPEC.md) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg overflow-x-auto">
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary">table_chart</span>
+      Tabel Hasil Kalkulasi Subnet
+    </h3>
+  </div>
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="border-b border-surface-container-high text-on-surface-variant font-label-md text-label-md">
+        <th class="py-2.5 px-4">Parameter</th>
+        <th class="py-2.5 px-4">Nilai</th>
+      </tr>
+    </thead>
+    <tbody class="font-code-md text-code-md divide-y divide-surface-container-low">
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Network</td>
+        <td class="py-2.5 px-4 text-primary font-bold" id="tbl-network">192.168.10.64</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Mask</td>
+        <td class="py-2.5 px-4 text-on-surface" id="tbl-mask">255.255.255.192</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Broadcast</td>
+        <td class="py-2.5 px-4 text-on-surface" id="tbl-broadcast">192.168.10.127</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">First Host</td>
+        <td class="py-2.5 px-4 text-tertiary font-bold" id="tbl-first-host">192.168.10.65</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Last Host</td>
+        <td class="py-2.5 px-4 text-tertiary font-bold" id="tbl-last-host">192.168.10.126</td>
+      </tr>
+      <tr>
+        <td class="py-2.5 px-4 font-semibold text-on-surface-variant">Usable Hosts</td>
+        <td class="py-2.5 px-4 text-primary font-bold" id="tbl-usable-hosts">62</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <!-- Summary Banner Card -->
 <div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
 <div class="flex items-center gap-space-md min-w-0">
@@ -151,7 +202,7 @@
 </button>
 </div>
 <div>
-<div class="font-code-lg text-code-lg text-on-surface font-bold">255.255.255.192</div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-mask">255.255.255.192</div>
 <div class="font-code-sm text-code-sm text-on-surface-variant tracking-tighter truncate mt-0.5" title="11111111.11111111.11111111.11000000">
                 11111111.11111111.11111111.<span class="text-primary font-bold">11</span>000000
               </div>
@@ -170,7 +221,7 @@
 </button>
 </div>
 <div>
-<div class="font-code-lg text-code-lg text-on-surface font-bold">192.168.10.64</div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-network">192.168.10.64</div>
 <div class="font-body-sm text-body-sm text-outline mt-0.5">Identifies the subnet on the wire</div>
 </div>
 <div class="font-body-sm text-body-sm text-on-surface-variant">Reserved — Non-assignable</div>
@@ -187,7 +238,7 @@
 </button>
 </div>
 <div>
-<div class="font-code-lg text-code-lg text-on-surface font-bold">192.168.10.127</div>
+<div class="font-code-lg text-code-lg text-on-surface font-bold" id="res-broadcast">192.168.10.127</div>
 <div class="font-body-sm text-body-sm text-outline mt-0.5">All host bits set to binary 1</div>
 </div>
 <div class="font-body-sm text-body-sm text-on-surface-variant">Reserved — Local segment only</div>
@@ -206,11 +257,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm py-1">
 <div class="p-space-sm bg-surface-container-low rounded-lg">
 <span class="font-label-sm text-label-sm text-outline block">First Usable Host</span>
-<span class="font-code-md text-code-md text-on-surface font-semibold">192.168.10.65</span>
+<span class="font-code-md text-code-md text-on-surface font-semibold" id="res-first-host">192.168.10.65</span>
 </div>
 <div class="p-space-sm bg-surface-container-low rounded-lg">
 <span class="font-label-sm text-label-sm text-outline block">Last Usable Host</span>
-<span class="font-code-md text-code-md text-on-surface font-semibold">192.168.10.126</span>
+<span class="font-code-md text-code-md text-on-surface font-semibold" id="res-last-host">192.168.10.126</span>
 </div>
 </div>
 <div class="font-body-sm text-body-sm text-on-surface-variant">Valid unicast endpoints for hosts, gateways, and switches.</div>
@@ -222,10 +273,10 @@
 <span class="material-symbols-outlined text-[18px] text-primary">pin</span>
                 Usable Hosts Capacity
               </span>
-<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-tertiary font-code-sm text-code-sm font-semibold">62 Hosts</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-tertiary font-code-sm text-code-sm font-semibold" id="res-usable-badge">62 Hosts</span>
 </div>
 <div>
-<div class="font-code-md text-headline-sm text-primary font-bold">2<sup class="text-xs">6</sup> - 2 = 62</div>
+<div class="font-code-md text-headline-sm text-primary font-bold" id="res-usable-hosts">2<sup class="text-xs">6</sup> - 2 = 62</div>
 <div class="font-code-sm text-code-sm text-on-surface-variant mt-1">Total IPs: 64 • Overhead: 2</div>
 </div>
 <div class="font-body-sm text-body-sm text-outline">Formula: 2<sup class="text-xs">(32 - prefix)</sup> - 2</div>
@@ -665,22 +716,117 @@
 
   function applyPresetPrefix(prefix) {
     document.getElementById('subnet-prefix-input').value = prefix;
-    setSimState('success');
+    triggerCalculate();
     showToast(`Preset /${prefix} applied`);
   }
 
-  function triggerCalculate() {
-    setSimState('success');
-    showToast('Subnet boundaries re-calculated');
+  async function triggerCalculate() {
+    const ip = document.getElementById('subnet-ip-input').value.trim();
+    const prefix = document.getElementById('subnet-prefix-input').value.trim();
+
+    const alertContainer = document.getElementById('subnet-alert-container');
+    const alertDetail = document.getElementById('subnet-alert-detail');
+    const subnetSuccess = document.getElementById('subnet-result-success');
+    const subnetEmpty = document.getElementById('subnet-result-empty');
+    const ipWrap = document.getElementById('subnet-ip-wrapper');
+    const prefWrap = document.getElementById('subnet-prefix-wrapper');
+
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
+    if (ipWrap) ipWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+    if (prefWrap) prefWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+
+    try {
+      const response = await fetch(`/api/subnet?ip=${encodeURIComponent(ip)}&prefix=${encodeURIComponent(prefix)}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (alertContainer && alertDetail) {
+          alertContainer.classList.remove('hidden');
+          alertContainer.classList.add('flex');
+          alertDetail.textContent = data.detail || 'Terjadi kesalahan validasi.';
+        }
+        if (ipWrap) ipWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+        if (prefWrap) prefWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+        subnetSuccess.classList.add('hidden');
+        subnetEmpty.classList.remove('hidden');
+        showToast('Kalkulasi gagal: ' + (data.detail || 'Error'));
+        return;
+      }
+
+      renderSubnetData(ip, prefix, data);
+      subnetSuccess.classList.remove('hidden');
+      subnetEmpty.classList.add('hidden');
+      showToast('Kalkulasi subnet berhasil');
+    } catch (err) {
+      if (alertContainer && alertDetail) {
+        alertContainer.classList.remove('hidden');
+        alertContainer.classList.add('flex');
+        alertDetail.textContent = 'Gagal menghubungi server API: ' + err.message;
+      }
+      subnetSuccess.classList.add('hidden');
+      subnetEmpty.classList.remove('hidden');
+    }
+  }
+
+  function renderSubnetData(ip, prefix, data) {
+    const bannerIp = document.getElementById('res-banner-ip');
+    const bannerPref = document.getElementById('res-banner-prefix');
+    if (bannerIp) bannerIp.textContent = data.network;
+    if (bannerPref) bannerPref.textContent = `/${prefix}`;
+
+    const tblNet = document.getElementById('tbl-network');
+    const tblMask = document.getElementById('tbl-mask');
+    const tblBrd = document.getElementById('tbl-broadcast');
+    const tblFirst = document.getElementById('tbl-first-host');
+    const tblLast = document.getElementById('tbl-last-host');
+    const tblUsable = document.getElementById('tbl-usable-hosts');
+
+    if (tblNet) tblNet.textContent = data.network;
+    if (tblMask) tblMask.textContent = data.mask;
+    if (tblBrd) tblBrd.textContent = data.broadcast !== null ? data.broadcast : 'None (Point-to-point / Host route)';
+    if (tblFirst) tblFirst.textContent = data.first_host;
+    if (tblLast) tblLast.textContent = data.last_host;
+    if (tblUsable) tblUsable.textContent = data.usable_hosts;
+
+    const cardMask = document.getElementById('res-mask');
+    const cardNet = document.getElementById('res-network');
+    const cardBrd = document.getElementById('res-broadcast');
+    const cardFirst = document.getElementById('res-first-host');
+    const cardLast = document.getElementById('res-last-host');
+    const cardBadge = document.getElementById('res-usable-badge');
+    const cardUsable = document.getElementById('res-usable-hosts');
+
+    if (cardMask) cardMask.textContent = data.mask;
+    if (cardNet) cardNet.textContent = data.network;
+    if (cardBrd) cardBrd.textContent = data.broadcast !== null ? data.broadcast : 'None';
+    if (cardFirst) cardFirst.textContent = data.first_host;
+    if (cardLast) cardLast.textContent = data.last_host;
+    if (cardBadge) cardBadge.textContent = `${data.usable_hosts} Hosts`;
+    if (cardUsable) cardUsable.textContent = `${data.usable_hosts}`;
   }
 
   function resetSubnetForm() {
-    setSimState('empty');
+    document.getElementById('subnet-ip-input').value = '';
+    document.getElementById('subnet-prefix-input').value = '';
+    const alertContainer = document.getElementById('subnet-alert-container');
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
+    const subnetSuccess = document.getElementById('subnet-result-success');
+    const subnetEmpty = document.getElementById('subnet-result-empty');
+    if (subnetSuccess) subnetSuccess.classList.add('hidden');
+    if (subnetEmpty) subnetEmpty.classList.remove('hidden');
     showToast('Inputs cleared');
   }
 
   function fillSampleSubnet() {
-    setSimState('success');
+    document.getElementById('subnet-ip-input').value = '192.168.10.75';
+    document.getElementById('subnet-prefix-input').value = '26';
+    triggerCalculate();
   }
 
   function fillSampleVlsm() {
