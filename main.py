@@ -90,3 +90,12 @@ def get_root():
 @app.get("/api/subnet")
 def get_subnet(ip: str = Query(...), prefix: int = Query(...)):
     return hitung_subnet(ip, prefix)
+
+
+def alokasi_vlsm(network_cidr: str, kebutuhan_host: list[int]) -> list[dict]:
+    raise NotImplementedError
+
+
+@app.post("/api/vlsm")
+def post_vlsm():
+    raise NotImplementedError

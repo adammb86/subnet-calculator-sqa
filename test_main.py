@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from main import app, hitung_subnet
+from main import alokasi_vlsm, app, hitung_subnet
 
 client = TestClient(app)
 
@@ -125,3 +125,116 @@ def test_api_subnet_invalid(ip, prefix):
     response = client.get(f"/api/subnet?ip={ip}&prefix={prefix}")
     assert response.status_code == 400
     assert "detail" in response.json()
+
+
+# ==============================================================================
+# Test Data: VLSM Cases (SPEC.md TC12 - TC13 and Validations)
+# ==============================================================================
+
+TC12_EXPECTED = [
+    {
+        "kebutuhan": 100,
+        "network_cidr": "192.168.1.0/25",
+        "network": "192.168.1.0",
+        "mask": "255.255.255.128",
+        "broadcast": "192.168.1.127",
+        "first_host": "192.168.1.1",
+        "last_host": "192.168.1.126",
+        "usable_hosts": 126,
+    },
+    {
+        "kebutuhan": 50,
+        "network_cidr": "192.168.1.128/26",
+        "network": "192.168.1.128",
+        "mask": "255.255.255.192",
+        "broadcast": "192.168.1.191",
+        "first_host": "192.168.1.129",
+        "last_host": "192.168.1.190",
+        "usable_hosts": 62,
+    },
+    {
+        "kebutuhan": 20,
+        "network_cidr": "192.168.1.192/27",
+        "network": "192.168.1.192",
+        "mask": "255.255.255.224",
+        "broadcast": "192.168.1.223",
+        "first_host": "192.168.1.193",
+        "last_host": "192.168.1.222",
+        "usable_hosts": 30,
+    },
+    {
+        "kebutuhan": 2,
+        "network_cidr": "192.168.1.224/30",
+        "network": "192.168.1.224",
+        "mask": "255.255.255.252",
+        "broadcast": "192.168.1.227",
+        "first_host": "192.168.1.225",
+        "last_host": "192.168.1.226",
+        "usable_hosts": 2,
+    },
+]
+
+INVALID_VLSM_CASES = [
+    # TC13: Kapasitas Gagal
+    ("192.168.1.0/24", [200, 100]),
+    # Network bukan alamat network yang valid (host bit bukan 0)
+    ("192.168.1.5/24", [50]),
+    # Format network_cidr salah (tanpa prefix)
+    ("192.168.1.0", [50]),
+    # Kebutuhan host kosong
+    ("192.168.1.0/24", []),
+    # Nilai kebutuhan host < 1 (nol)
+    ("192.168.1.0/24", [50, 0]),
+    # Nilai kebutuhan host < 1 (negatif)
+    ("192.168.1.0/24", [50, -5]),
+]
+
+
+# ==============================================================================
+# Unit Tests: alokasi_vlsm
+# ==============================================================================
+
+
+def test_alokasi_vlsm_success():
+    """TC12: Alokasi VLSM berhasil secara berurutan dan terurut descending."""
+    result = alokasi_vlsm("192.168.1.0/24", [100, 50, 20, 2])
+    assert result == TC12_EXPECTED
+
+
+def test_alokasi_vlsm_auto_sort_descending():
+    """TC12: Input tidak berurutan harus otomatis diurutkan descending."""
+    result = alokasi_vlsm("192.168.1.0/24", [20, 100, 2, 50])
+    assert result == TC12_EXPECTED
+
+
+@pytest.mark.parametrize("network_cidr,kebutuhan", INVALID_VLSM_CASES)
+def test_alokasi_vlsm_invalid(network_cidr, kebutuhan):
+    """TC13 dan validasi input VLSM harus memicu ValueError."""
+    with pytest.raises(ValueError):
+        alokasi_vlsm(network_cidr, kebutuhan)
+
+
+# ==============================================================================
+# Integration Tests: POST /api/vlsm
+# ==============================================================================
+
+
+def test_api_vlsm_success():
+    """POST /api/vlsm dengan payload valid harus mengembalikan status 200 dan daftar alokasi."""
+    response = client.post(
+        "/api/vlsm",
+        json={"network": "192.168.1.0/24", "kebutuhan_host": [100, 50, 20, 2]},
+    )
+    assert response.status_code == 200
+    assert response.json() == TC12_EXPECTED
+
+
+@pytest.mark.parametrize("network_cidr,kebutuhan", INVALID_VLSM_CASES)
+def test_api_vlsm_invalid(network_cidr, kebutuhan):
+    """POST /api/vlsm dengan payload tidak valid / overload harus mengembalikan status 400."""
+    response = client.post(
+        "/api/vlsm", json={"network": network_cidr, "kebutuhan_host": kebutuhan}
+    )
+    assert response.status_code == 400
+    assert "detail" in response.json()
+
