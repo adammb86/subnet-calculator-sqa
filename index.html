@@ -379,7 +379,7 @@
 </label>
 <div class="relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm" id="vlsm-input-wrapper">
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">account_tree</span>
-<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="vlsm-major-net" placeholder="e.g. 172.16.0.0/20" type="text" value="172.16.0.0/20"/>
+<input class="w-full pl-10 pr-3 py-2 text-on-surface font-code-md text-code-md rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-primary" id="vlsm-major-net" placeholder="e.g. 172.16.0.0/20" type="text" value="172.16.0.0/20" onkeydown="if(event.key==='Enter') triggerVlsmCalculate()"/>
 </div>
 <div class="hidden items-center gap-1 font-body-sm text-body-sm text-error mt-0.5" id="vlsm-net-error">
 <span class="material-symbols-outlined text-[16px]">error</span>
@@ -476,6 +476,14 @@
             Reset List
           </button>
 </div>
+<!-- Error Alert Container for VLSM (SPEC.md) -->
+<div id="vlsm-alert-container" class="hidden p-space-md rounded-xl bg-error-container text-error font-medium items-center gap-3 border border-error">
+  <span class="material-symbols-outlined text-[24px] text-error shrink-0">error</span>
+  <div>
+    <div class="font-label-md text-label-md font-bold text-error">Kesalahan Input VLSM (HTTP 400)</div>
+    <div id="vlsm-alert-detail" class="font-body-sm text-body-sm text-error font-medium"></div>
+  </div>
+</div>
 </div>
 <!-- VLSM RESULT: SUCCESS STATE -->
 <div class="flex flex-col gap-space-md" id="vlsm-result-success">
@@ -487,7 +495,7 @@
 </div>
 <div>
 <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Address Space Efficiency</span>
-<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold" id="vlsm-efficiency-text">
                 Allocated 240 / 4094 available addresses <span class="text-tertiary font-bold">(5.8% space used)</span>
 </div>
 </div>
@@ -515,7 +523,7 @@
 <th class="py-3 px-4">Broadcast Address</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm">
+<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm" id="vlsm-results-tbody">
 <!-- Row 1 -->
 <tr class="hover:bg-surface-container-low/50 transition-colors">
 <td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
@@ -830,16 +838,191 @@
   }
 
   function fillSampleVlsm() {
-    setSimState('success');
+    document.getElementById('vlsm-major-net').value = '192.168.1.0/24';
+    const container = document.getElementById('vlsm-rows-container');
+    container.innerHTML = `
+      <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" placeholder="Subnet Name" value="LAN Utama" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        </div>
+        <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+          <input type="number" placeholder="Hosts" value="100" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+        </div>
+        <div class="col-span-1 flex justify-end">
+          <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+            <span class="material-symbols-outlined text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+      <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" placeholder="Subnet Name" value="Kantor Cabang" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        </div>
+        <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+          <input type="number" placeholder="Hosts" value="50" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+        </div>
+        <div class="col-span-1 flex justify-end">
+          <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+            <span class="material-symbols-outlined text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+      <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" placeholder="Subnet Name" value="Server DMZ" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        </div>
+        <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+          <input type="number" placeholder="Hosts" value="20" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+        </div>
+        <div class="col-span-1 flex justify-end">
+          <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+            <span class="material-symbols-outlined text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+      <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" placeholder="Subnet Name" value="Point to Point" class="vlsm-name w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+        </div>
+        <div class="col-span-5 sm:col-span-4 flex items-center gap-2">
+          <input type="number" placeholder="Hosts" value="2" class="vlsm-hosts w-full px-3 py-1.5 rounded-lg bg-surface-container-lowest font-code-md text-code-md focus:outline-none focus:ring-1 focus:ring-primary text-on-surface">
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap hidden sm:inline">needed</span>
+        </div>
+        <div class="col-span-1 flex justify-end">
+          <button onclick="removeVlsmRow(this)" class="p-1 rounded text-outline hover:text-error transition-colors" title="Delete subnet">
+            <span class="material-symbols-outlined text-[20px]">delete</span>
+          </button>
+        </div>
+      </div>
+    `;
+    triggerVlsmCalculate();
   }
 
-  function triggerVlsmCalculate() {
-    setSimState('success');
-    showToast('VLSM allocation recalculation successful');
+  async function triggerVlsmCalculate() {
+    const majorNet = document.getElementById('vlsm-major-net').value.trim();
+    const rows = document.querySelectorAll('#vlsm-rows-container .vlsm-row');
+    const items = [];
+    rows.forEach(r => {
+      const nameInput = r.querySelector('.vlsm-name');
+      const hostsInput = r.querySelector('.vlsm-hosts');
+      const name = nameInput ? nameInput.value.trim() : '';
+      const hosts = parseInt(hostsInput.value.trim(), 10);
+      if (!isNaN(hosts)) {
+        items.push({ name: name || `Subnet (${hosts} Hosts)`, hosts });
+      }
+    });
+
+    const alertContainer = document.getElementById('vlsm-alert-container');
+    const alertDetail = document.getElementById('vlsm-alert-detail');
+    const vlsmSuccess = document.getElementById('vlsm-result-success');
+    const vlsmEmpty = document.getElementById('vlsm-result-empty');
+    const vlsmWrap = document.getElementById('vlsm-input-wrapper');
+
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
+    if (vlsmWrap) vlsmWrap.className = 'relative rounded-lg bg-surface-container-lowest transition-colors shadow-sm';
+
+    try {
+      const kebutuhan_host = items.map(i => i.hosts);
+      const res = await fetch('/api/vlsm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ network: majorNet, kebutuhan_host })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (alertContainer && alertDetail) {
+          alertContainer.classList.remove('hidden');
+          alertContainer.classList.add('flex');
+          alertDetail.textContent = data.detail || 'Terjadi kesalahan alokasi VLSM.';
+        }
+        if (vlsmWrap) vlsmWrap.className = 'relative rounded-lg bg-error-container/40 ring-2 ring-error transition-colors shadow-sm';
+        if (vlsmSuccess) vlsmSuccess.classList.add('hidden');
+        if (vlsmEmpty) vlsmEmpty.classList.remove('hidden');
+        showToast('Kalkulasi VLSM gagal: ' + (data.detail || 'Error'));
+        return;
+      }
+
+      renderVlsmResults(data, items);
+      if (vlsmSuccess) vlsmSuccess.classList.remove('hidden');
+      if (vlsmEmpty) vlsmEmpty.classList.add('hidden');
+      showToast('Kalkulasi VLSM berhasil');
+    } catch (err) {
+      if (alertContainer && alertDetail) {
+        alertContainer.classList.remove('hidden');
+        alertContainer.classList.add('flex');
+        alertDetail.textContent = 'Gagal menghubungi server API: ' + err.message;
+      }
+      if (vlsmSuccess) vlsmSuccess.classList.add('hidden');
+      if (vlsmEmpty) vlsmEmpty.classList.remove('hidden');
+    }
+  }
+
+  function renderVlsmResults(data, items) {
+    const tbody = document.getElementById('vlsm-results-tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const remainingItems = [...items];
+    let totalAllocated = 0;
+
+    data.forEach((alloc, idx) => {
+      let nameIndex = remainingItems.findIndex(it => it.hosts === alloc.kebutuhan);
+      let name = `Subnet ${idx + 1}`;
+      if (nameIndex !== -1) {
+        name = remainingItems[nameIndex].name || name;
+        remainingItems.splice(nameIndex, 1);
+      }
+
+      totalAllocated += alloc.usable_hosts;
+      const range = `${alloc.first_host} – ${alloc.last_host}`;
+      const tr = document.createElement('tr');
+      tr.className = idx % 2 === 0 ? 'hover:bg-surface-container-low/50 transition-colors' : 'bg-surface-container-lowest/60 hover:bg-surface-container-low/50 transition-colors';
+      tr.innerHTML = `
+        <td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-medium flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-primary"></span>
+          ${escapeHtml(name)}
+        </td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-outline">${alloc.kebutuhan}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary font-semibold">${alloc.usable_hosts}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm font-bold text-primary">${alloc.network_cidr.split('/')[1] ? '/' + alloc.network_cidr.split('/')[1] : alloc.network_cidr}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">${alloc.mask}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface font-semibold">${alloc.network}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">${range}</td>
+        <td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">${alloc.broadcast !== null ? alloc.broadcast : 'None'}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    const efficiencyText = document.getElementById('vlsm-efficiency-text');
+    if (efficiencyText) {
+      efficiencyText.innerHTML = `Dialokasikan total ${totalAllocated} host dalam ${data.length} blok subnet`;
+    }
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag));
   }
 
   function resetVlsmForm() {
     document.getElementById('vlsm-major-net').value = '';
+    const alertContainer = document.getElementById('vlsm-alert-container');
+    if (alertContainer) {
+      alertContainer.classList.add('hidden');
+      alertContainer.classList.remove('flex');
+    }
     const container = document.getElementById('vlsm-rows-container');
     container.innerHTML = `
       <div class="vlsm-row grid grid-cols-12 gap-space-sm items-center bg-surface-container-low p-space-sm rounded-xl">
@@ -857,7 +1040,11 @@
         </div>
       </div>
     `;
-    setSimState('empty');
+    const vlsmSuccess = document.getElementById('vlsm-result-success');
+    const vlsmEmpty = document.getElementById('vlsm-result-empty');
+    if (vlsmSuccess) vlsmSuccess.classList.add('hidden');
+    if (vlsmEmpty) vlsmEmpty.classList.remove('hidden');
+    showToast('Inputs cleared');
   }
 
   function addVlsmRow() {
